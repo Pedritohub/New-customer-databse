@@ -1,0 +1,72 @@
+-- stacking table month on each other
+select * from jann union all
+select * from febb union all
+ select * from marchh union all
+ select * from aprill union all
+ select * from mayy union all
+ select * from junee union all
+ select * from julyy union all
+ select * from augg union all
+ select * from septt union all
+ select * from octt union all
+ select * from novv union all
+ select * from decc;
+ 
+ -- concatting and pivotting based on stacked table (cte)
+ with cte as
+ (
+ select *
+		, 'jan' as month
+ from jann
+ union all
+ select *
+		,'feb' as month
+ from febb
+ union all
+ select *
+		,'march' as month
+ from marchh
+ union all
+ select *
+		,'april' as month
+ from aprill
+ union all
+ select *
+		,'may' as month
+ from mayy
+ union all
+ select *
+		,'june' as month
+ from junee
+ union all
+ select *
+		,'july' as month
+ from julyy
+ union all
+ select *
+		,'aug' as month
+ from augg
+ union all
+ select *
+		,'sept' as month
+ from septt
+ union all
+ select *
+		,'oct' as month
+ from octt
+ union all
+ select *
+		,'nov' as month
+ from novv
+ union all
+ select *
+		,'dec' as month
+ from decc)
+select ï»¿ID
+		,CONCAT(joining_day,'-',MONTH,'-','2023') as JOINING_DATE
+		,max(case when demographic = 'account type' then Value end) as account_type
+		,max(case when demographic = 'ethnicity' then Value end) as Ethnicity
+		,max(case when demographic = 'date of birth' then Value end) as Date_of_birth
+from cte
+group by ï»¿ID, joining_date
+order by ï»¿ID ;
